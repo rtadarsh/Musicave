@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
+    <title>MyTunes Search-Tracks</title>
+    {{> style}}
+
+
+
+
+</head>
+
+<body>
+    <div id="wrapper">
+        {{> header}}
+        <!-- Icon Bar (Sidebar - hidden on small screens) -->
+        <div class="split left">
+            <div class="nav">
+                <nav class="sidebar">
+                    <!-- Avatar image in top left corner -->
+
+                    <a href="/" title="Home">
+                        <i class="fa fa-home"></i>
+                        {{!-- <p>HOME</p> --}}
+                    </a>
+                    <a href="/newuser/library" title="Playlist">
+                        <i class="fa fa-play-circle-o"></i>
+                        {{!-- <p>Playlist</p> --}}
+                    </a>
+
+                    <a href="/newuser/addplaylist" title="Add new Playlist">
+                        <i class="fa fa-plus-square-o"></i>
+                        {{!-- <p>Add Playlist</p> --}}
+                    </a>
+
+                </nav>
+            </div>
+        </div>
+        <!-- from here all new released album displpay-->
+        <div class="split right">
+            <div class="contain">
+                <div class="track" style="top:75%;">
+                    <div>
+                        <center>
+                            <h1
+                                style="font-size:xx-large; text-align: center; color:aliceblue; font-weight: bold; margin-top:10px;">
+                                Related result Tracks</h1>
+                        </center>
+
+                        {{#if display}}
+                        {{#each ar}}
+                        {{!-- why is action here --}}
+                        <form action="/stracks" method="POST">
+                            {{#if true}}
+                            <div class="trackrow">
+                                <div class="float-child">
+                                    <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
+                                </div>
+                                <div class="float-child">
+                                    {{!-- try converting name to title --}}
+                                    <h5 class="album-name pt-4 pb-2" id="songNameOne" value="{{this.name}}">
+                                        {{this.name}}</h5>
+                                </div>
+                                <div class="float-child">
+                                    <a href="#" class="overlay" id="audioSrcOne"
+                                        onclick="return setPlayer('{{this.downloadUrl.2.link}}');" title="Play">
+                                        <i class="far fa-play-circle"
+                                            style="padding-top: 9px; font-size:xx-large; color:white;"></i>
+                                    </a>
+
+                                    <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
+                                    <input type="text" name="songName" value="{{this.name}}" hidden>
+                                </div>
+                            </div>
+                            {{/if}}
+                        </form>
+                        {{/each}}
+                        {{else}}
+                        <div class="trackrow">
+                            <h2>No Preview available for the tracks</h2>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{> player}}
+    <script>
+        function setPlayer(media_src) {
+            console.log('function called');
+            console.log('media src: ' + media_src);
+            var player = document.getElementById('player');
+            player.src = media_src;
+            player.load();
+            player.play();
+            return false;
+        }
+
+
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('#myimg')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
