@@ -55,7 +55,7 @@ router.get('/search', (req, res) => {
             })
     }
     else {
-        axios.get(`https://saavn.me/search/songs?query=${req.query.artist}&page=1&limit=2`)
+        axios.get(`https://saavn.me/search/songs?query=${req.query.artist}&page=1&limit=10`)
             .then((data) => {
                 var ar = data.data.results;
                 let display = true;
