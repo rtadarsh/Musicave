@@ -2,141 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
-    <title>MyTunes - Albumtracks</title>
-    {{> style}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
+	<title>MyTunes - Albumtracks</title>
+	{{> style}}
 
 </head>
 
 <body style="background-color: rgb(99, 96, 96); height:120%">
-    <div id="wrapper">
-        {{> header}}
-        <!-- Icon Bar (Sidebar - hidden on small screens) -->
-        <div class="split left">
-            <div class="nav">
-                <nav class="sidebar">
-                    <!-- Avatar image in top left corner -->
+	<div id="wrapper">
+		{{> header}}
+		<!-- Icon Bar (Sidebar - hidden on small screens) -->
+		<div class="split left">
+			<div class="nav">
+				<nav class="sidebar">
+					<!-- Avatar image in top left corner -->
 
-                    <a href="/" title="Home">
-                        <i class="fa fa-home"></i>
-                        {{!-- <p>HOME</p> --}}
-                    </a>
-                    <a href="/newuser/library" title="Playlist">
-                        <i class="fa fa-play-circle-o"></i>
-                        {{!-- <p>Playlist</p> --}}
-                    </a>
+					<a href="/" title="Home">
+						<i class="fa fa-home"></i>
+						{{!-- <p>HOME</p> --}}
+					</a>
+					<a href="/newuser/library" title="Playlist">
+						<i class="fa fa-play-circle-o"></i>
+						{{!-- <p>Playlist</p> --}}
+					</a>
 
-                    <a href="/newuser/addplaylist" title="Add new Playlist">
-                        <i class="fa fa-plus-square-o"></i>
-                        {{!-- <p>Add Playlist</p> --}}
-                    </a>
+					<a href="/newuser/addplaylist" title="Add new Playlist">
+						<i class="fa fa-plus-square-o"></i>
+						{{!-- <p>Add Playlist</p> --}}
+					</a>
 
-                </nav>
-            </div>
-        </div>
-        <!-- from here all new released album displpay-->
+				</nav>
+			</div>
+		</div>
+		<!-- from here all new released album displpay-->
 
-        <div class="split right">
-            <center>
-                <h1 style="color: aliceblue; font-size:180%; padding-top:20px; padding-bottom:20px">Album Tracks</h1>
-            </center>
-            <div class="contain">
-                <div class="track">
-                    <div>
+		<div class="split right">
+			<center>
+				<h1 style="color: aliceblue; font-size:180%; padding-top:20px; padding-bottom:20px">Album Tracks</h1>
+			</center>
+			<div class="contain">
+				<div class="track">
+					<div>
 
-                        {{#if display}}
-                        {{#each resultOne}}
+						{{#if display}}
+						{{#each resultOne}}
 
-                        <form action="" method="POST">
-                            {{#if true}}
-                            <div class="trackrow">
-                                <div class="float-child">
-                                    <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
-                                </div>
-                                <div class="float-child">
-                                    <h5 class="album-name pt-4 pb-2" id="songNameOne" value="{{this.name}}">
-                                        {{this.name}}</h5>
-                                </div>
-                                <div class="float-child">
-                                    <a href="#" class="overlay" id="audioSrcOne"
-                                        onclick="return setPlayer('{{this.downloadUrl.2.link}}');" title="Play">
-                                        <i class="far fa-play-circle"
-                                            style="padding-top: 9px; font-size:xx-large; color: aliceblue;"></i>
-                                    </a>
-                                    <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
-                                    <input type="text" name="songName" value="{{this.name}}" hidden>
-                                    {{!-- {{#if true}}
-                                    <select name="userPlaylist" class="dropdown1" id="search-by"
-                                        style="color:aliceblue; font-size:100%; padding-left: 25px; padding-right: 10px;">
-                                        <option value="Select" id="opt" style="color:aliceblue; font-size:100%">--Add
-                                            To--</option>
+						<form action="/play" method="POST">
+							{{#if true}}
+							<div class="trackrow">
+								<div class="float-child">
+									<img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
+								</div>
+								<div class="float-child">
+									<h5 class="album-name pt-4 pb-2" id="songNameOne" value="{{this.name}}">
+										{{this.name}}</h5>
+								</div>
+								<div class="float-child">
+									<input type="submit" value="">
+									<input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
+									<input type="text" name="songName" value="{{this.name}}" hidden>
+									<input type="text" name="albumName" value="{{this.artist}}" hidden>
 
-                                        {{#each ../user.playlist}}
-                                        <option id="{{id}}" style="color:aliceblue; font-size:100%" value="{{id}}">
-                                            {{name}}</option>
-                                        {{/each}}
-                                    </select>
-                                    <button type="submit" class="icon"
-                                        style="background: inherit;border:none;margin-left:10px;"
-                                        title="Add to Playlist"><i class="far fa-plus-square"
-                                            style="padding-top: 9px; font-size:xx-large;background:inherit;color:white  "></i></button>
-                                    {{/if}} --}}
+								</div>
+							</div>
+							{{/if}}
+						</form>
+						{{/each}}
 
-                                </div>
-                            </div>
-                            {{/if}}
-                        </form>
-                        {{/each}}
+						{{else}}
+						<div class="trackrow">
+							<h2>No Preview available for the tracks</h2>
+						</div>
+						{{/if}}
 
-                        {{else}}
-                        <div class="trackrow">
-                            <h2>No Preview available for the tracks</h2>
-                        </div>
-                        {{/if}}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    {{> player}}
-    <script>
-        function setPlayer(media_src) {
-            console.log('function called');
-            console.log('media src: ' + media_src);
-            var player = document.getElementById('player');
-            player.src = media_src;
-            player.load();
-            player.play();
-            return false;
-        }
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	{{> player}}
+	<script>
+		function setPlayer(media_src) {
+			console.log('function called');
+			console.log('media src: ' + media_src);
+			var player = document.getElementById('player');
+			player.src = media_src;
+			player.load();
+			player.play();
+			return false;
+		}
 
 
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
+		function myFunction() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
 
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('#myimg')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
+		// Close the dropdown menu if the user clicks outside of it
+		window.onclick = function (event) {
+			if (!event.target.matches('#myimg')) {
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+	</script>
 </body>
 
 </html>
