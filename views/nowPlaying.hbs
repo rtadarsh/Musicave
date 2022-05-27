@@ -54,7 +54,7 @@
                         </center>
 
                         {{#if display}}
-                        {{#each ar}}
+                        {{#each recommendedTrack}}
                         {{!-- why is action here --}}
                         <form action="/play" method="POST">
                             {{#if true}}
@@ -82,6 +82,7 @@
                             <h2>No Preview available for the tracks</h2>
                         </div>
                         {{/if}}
+
                     </div>
                 </div>
             </div>
@@ -89,15 +90,12 @@
     </div>
     {{> player}}
     <script>
-        function setPlayer(media_src) {
-            console.log('function called');
-            console.log('media src: ' + media_src);
-            var player = document.getElementById('player');
-            player.src = media_src;
-            player.load();
-            player.play();
-            return false;
-        }
+        console.log('function called');
+        console.log('media src: ' + "{{ songUrl }}");
+        var player = document.getElementById('player');
+        player.src = "{{ songUrl }}";
+        player.load();
+        player.play();
 
 
         function myFunction() {
