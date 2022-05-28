@@ -6,10 +6,9 @@
 
     <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
     {{> style}}
@@ -28,13 +27,15 @@
                         <i class="fa fa-home"></i>
                         {{!-- <p>HOME</p> --}}
                     </a>
-                    <a href="/newuser/library" title="Playlist">
-                        <i class="fa fa-play-circle-o"></i>
+                    <a href="/trending" title="Trending">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+
+                        {{!-- <i class="fa fa-play-circle-o"></i> --}}
                         {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/newuser/addplaylist" title="Add new Playlist">
-                        <i class="fa fa-plus-square-o"></i>
+                    <a href="/random" title="Play Random Song">
+                        <i class="fa-solid fa-shuffle"></i>
                         {{!-- <p>Add Playlist</p> --}}
                     </a>
 
@@ -43,13 +44,13 @@
         </div>
 
         <div class="split right">
-            <div class="contain">
-
+            <div class="contain" style="display: flex; flex-direction:column;">
                 <div>
                     <h1
-                        style="font-size:xx-large; text-align: center; font-weight: bold; margin:40px 20px 0px;font-weight:800;font-family:'Poppins', sans-serif; color:aliceblue">
-                        New Released</h1>
-
+                        style="font-size:xx-large; text-align: center; margin:20px 20px 0; font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
+                        Home</h1>
+                </div>
+                <div>
                     {{#each trending}}
                     <div class="music-card newreimg">
                         <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
@@ -62,7 +63,7 @@
                         </a>
 
                         <div>
-                            <center>
+                            <center style="margin-bottom: 5px;">
                                 <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy;" class="links"
                                     style="color: black;">
                                     <marquee width=80% onMouseOver="javascript:stop()" onMouseOut="javascript:start()"
@@ -77,12 +78,8 @@
                         </div>
                     </div>
                     {{/each}}
-
-
                 </div>
             </div>
-
-
         </div>
     </div>
     <script>
