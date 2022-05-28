@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>musicotunes</title>
+    <title>Musicave</title>
 
     <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -48,10 +48,44 @@
                 <div>
                     <h1
                         style="font-size:xx-large; text-align: center; margin:20px 20px 0; font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
-                        Home</h1>
+                        Trending Albums</h1>
                 </div>
                 <div>
-                    {{#each trending}}
+                    {{#each trendingAlbums}}
+                    <div class="music-card newreimg">
+                        <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
+                            class="links" style="color: black;">
+                            <center>
+                                <div class="">
+                                    <img class="rimage" id="songImageOne" src="{{this.image}}" alt="Card image cap">
+                                </div>
+                            </center>
+                        </a>
+
+                        <div>
+                            <center style="margin-bottom: 5px;">
+                                <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy;" class="links"
+                                    style="color: black;">
+                                    <marquee width=80% onMouseOver="javascript:stop()" onMouseOut="javascript:start()"
+                                        direction="left" behavior="scroll" dir="ltr" height="30%" hspace="10" loop
+                                        scrolldelay=50>
+                                        <h5 class="album-name pt-4 pb-2" style="width: 40%;" id="songNameOne"
+                                            value="{{this.title}}">
+                                            {{this.title}}</h5>
+                                    </marquee>
+                                </a>
+                            </center>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <div>
+                    <h1
+                        style="font-size:xx-large; text-align: center; margin:20px 20px 0; font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
+                        Trending Songs</h1>
+                </div>
+                <div>
+                    {{#each trendingSongs}}
                     <div class="music-card newreimg">
                         <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
                             class="links" style="color: black;">
