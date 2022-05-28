@@ -55,6 +55,30 @@
                         </center>
 
                         {{#if display}}
+                        {{#if randomPlayer}}
+                        {{#each ar}}
+                        <form action="/stracks" method="POST">
+                            <div class="trackrow">
+                                <div class="float-child float-child-1">
+                                    <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
+                                </div>
+                                <div class="float-child float-child-2">
+                                    <h5 style="display: flex; align-items:center;" class="album-name pt-4 pb-2"
+                                        id="songNameOne" value="{{this.name}}">
+                                        {{this.name}} <span style="font-size:80%; margin-left: 15px;">(Album:
+                                            {{this.album.name}})</span>
+                                    </h5>
+                                </div>
+                                <div class="float-child float-child-3">
+                                    <button type="submit" class="play-button"
+                                        onclick="return setPlayer('{{this.downloadUrl.2.link}}');"></button>
+                                    <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
+                                </div>
+                            </div>
+
+                        </form>
+                        {{/each}}
+                        {{else}}
                         {{#each ar}}
                         <form action="/play" method="POST">
                             {{#if true}}
@@ -75,11 +99,13 @@
                                     <input type="text" name="songName" value="{{this.name}}" hidden>
                                     <input type="text" name="albumName" value="{{this.artist}}" hidden>
                                     <input type="text" name="duration" value="{{this.duration}}" hidden>
+                                    <input type="text" name="randomPlayer" value="{{../randomPlayer}}" hidden>
                                 </div>
                             </div>
                             {{/if}}
                         </form>
                         {{/each}}
+                        {{/if}}
                         {{else}}
                         <div class="trackrow">
                             <h2>No Preview available for the tracks</h2>
