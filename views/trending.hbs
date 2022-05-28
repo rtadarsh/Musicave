@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <title>Musicave Albums</title>
+    <title>Musicave - Trending</title>
+
+    <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
     <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
     {{> style}}
-
 </head>
 
 <body>
     <div id="wrapper">
         {{> header}}
-        <!-- Icon Bar (Sidebar - hidden on small screens) -->
         <div class="split left">
             <div class="nav">
                 <nav class="sidebar" style="margin-top: 60%;">
@@ -27,6 +28,8 @@
                     </a>
                     <a href="/trending" title="Trending">
                         <i class="fa-solid fa-arrow-trend-up"></i>
+
+                        {{!-- <i class="fa fa-play-circle-o"></i> --}}
                         {{!-- <p>Playlist</p> --}}
                     </a>
 
@@ -39,30 +42,25 @@
             </div>
         </div>
 
-
         <div class="split right">
             <div class="contain" style="display: flex; flex-direction:column;">
-                <!--artist search-->
-
                 <div>
                     <h1
-                        style="font-size:xx-large; text-align: center; margin:20px 20px 0;font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
-                        Albums</h1>
+                        style="font-size:xx-large; text-align: center; margin:20px 20px 0; font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
+                        Trending Albums</h1>
                 </div>
                 <div>
-                    {{#each ar}}
+                    {{#each trending}}
                     <div class="music-card newreimg">
-                        {{!-- modify the playlist track link --}}
                         <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
                             class="links" style="color: black;">
-                            {{!-- {{#each_upto this.images 1}} --}}
                             <center>
                                 <div class="">
                                     <img class="rimage" id="songImageOne" src="{{this.image}}" alt="Card image cap">
                                 </div>
                             </center>
-                            {{!-- {{/each_upto}} --}}
                         </a>
+
                         <div>
                             <center style="margin-bottom: 5px;">
                                 <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy;" class="links"
@@ -80,7 +78,6 @@
                     </div>
                     {{/each}}
                 </div>
-
             </div>
         </div>
     </div>

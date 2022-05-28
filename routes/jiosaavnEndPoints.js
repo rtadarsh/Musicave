@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const hbs = require('hbs');
 const SpotifyWebApi = require('spotify-web-api-node');
+const randomWords = require('random-words');
 
 
 hbs.registerHelper('each_upto', function (ary, max, options) {
@@ -39,17 +40,46 @@ spotifyApi.clientCredentialsGrant().then(
 
 router.get('/', function (req, res) {
     console.log("jiosaavn api");
+    axios.get('https://saavn.me/home')
+        .then(function (data) {
+            const trendingAlbums = data.data.results.new_trending.filter(data => data.type === "album").slice(0, 6);
+            const trendingSongs = data.data.results.new_trending.filter(data => data.type === "song").slice(0, 6);
+            res.render('index', {
+                trendingAlbums: trendingAlbums,
+                trendingSongs: trendingSongs
+            });
+        });
+});
+
+router.get('/trending', function (req, res) {
+    console.log("jiosaavn api");
     axios.get('https://saavn.me/trending')
         .then(function (data) {
             var trending = data.data.results.filter((data) => {
                 return data.type === "album";
             });
-            res.render('index', {
+            res.render('trending', {
                 trending: trending
             });
         });
 });
 
+router.get('/random', (req, res) => {
+    let randomSeed = "";
+    randomWords(2).forEach(word => randomSeed += (word + ' '));
+
+    axios.get(`https://saavn.me/search/songs?query=${randomSeed}&page=1&limit=10`)
+        .then((data) => {
+            var ar = data.data.results;
+            let display = true;
+            res.render('stracks', {
+                ar: ar,
+                display: display
+            });
+        }, (err) => {
+            console.error(err);
+        })
+})
 
 router.post('/play', async (req, res) => {
     const searchQuery = `${req.body.songName} ${req.body.albumName}`;
@@ -121,6 +151,11 @@ router.get('/search', (req, res) => {
         axios.get(`https://saavn.me/search/all?query=${req.query.artist}`)
             .then((data) => {
                 var ar = data.data.results.albums.data;
+                ar.forEach(data => {
+                    const imageUrl = data.image;
+                    const imageUrlLength = imageUrl.length;
+                    data.image = imageUrl.slice(0, imageUrlLength - 9) + '1' + imageUrl.slice(imageUrlLength - 9, imageUrlLength - 6) + '1' + imageUrl.slice(imageUrlLength - 6);
+                })
                 let display = true;
                 res.render('albums', {
                     ar: ar,
