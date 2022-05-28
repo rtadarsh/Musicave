@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
     <title>MyTunes - Albumtracks</title>
@@ -20,20 +21,20 @@
         <!-- Icon Bar (Sidebar - hidden on small screens) -->
         <div class="split left">
             <div class="nav">
-                <nav class="sidebar">
+                <nav class="sidebar" style="margin-top: 60%;">
                     <!-- Avatar image in top left corner -->
 
                     <a href="/" title="Home">
                         <i class="fa fa-home"></i>
                         {{!-- <p>HOME</p> --}}
                     </a>
-                    <a href="/newuser/library" title="Playlist">
-                        <i class="fa fa-play-circle-o"></i>
+                    <a href="/trending" title="Trending">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
                         {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/newuser/addplaylist" title="Add new Playlist">
-                        <i class="fa fa-plus-square-o"></i>
+                    <a href="/random" title="Play Random Song">
+                        <i class="fa-solid fa-shuffle"></i>
                         {{!-- <p>Add Playlist</p> --}}
                     </a>
 
@@ -60,15 +61,16 @@
                                     <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
                                 </div>
                                 <div class="float-child float-child-2">
-                                    <h5 class="album-name pt-4 pb-2" id="songNameOne" value="{{this.name}}">
-                                        {{this.name}}</h5>
+                                    <h5 class="album-name pt-4 pb-2" style="display: flex; align-items: center;"
+                                        id="songNameOne" value="{{this.name}}">
+                                        {{this.name}} <span style="font-size:80%; margin-left: 15px;">(Album:
+                                            {{this.album.name}})</span></h5>
                                 </div>
                                 <div class="float-child float-child-3">
-                                    <input type="submit" value="">
+                                    <button type="submit" class="play-button"></button>
                                     <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
                                     <input type="text" name="songName" value="{{this.name}}" hidden>
                                     <input type="text" name="albumName" value="{{this.artist}}" hidden>
-
                                 </div>
                             </div>
                             {{/if}}
