@@ -68,14 +68,14 @@ router.get('/trending', function (req, res) {
 router.get('/random', (req, res) => {
     let randomSeed = "";
     randomWords(2).forEach(word => randomSeed += (word + ' '));
-
     axios.get(`https://saavn.me/search/songs?query=${randomSeed}&page=1&limit=10`)
         .then((data) => {
             var ar = data.data.results;
             let display = true;
             res.render('stracks', {
                 ar: ar,
-                display: display
+                display: display,
+                randomPlayer: true
             });
         }, (err) => {
             console.error(err);
@@ -184,7 +184,8 @@ router.get('/search', (req, res) => {
                 let display = true;
                 res.render('stracks', {
                     ar: ar,
-                    display: display
+                    display: display,
+                    randomPlayer: false
                 });
             }, (err) => {
                 console.error(err);

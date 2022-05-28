@@ -1,5 +1,5 @@
 {
-    "name": "Musicave",
+    "name": "musicave",
     "version": "1.0.0",
     "description": "A music streaming app",
     "main": "index.js",
