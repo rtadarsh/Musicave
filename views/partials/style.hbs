@@ -24,6 +24,10 @@
         flex: 1;
     }
 
+    html {
+        background-color: #25282B;
+    }
+
     body {
         font-family: 'Sen', sans-serif;
         font-size: 13px;
@@ -57,13 +61,14 @@
 
 
     .split {
-        height: 100%;
+        height: 90%;
         width: 20%;
         position: fixed;
         top: 0;
     }
 
     .left {
+        height: 100%;
         width: 15%;
         left: 0;
         top: 100px;
@@ -518,7 +523,7 @@
     }
 
     .rimage {
-        max-width: 250px;
+        max-width: 100%;
         height: 250px;
         padding: 20px 20px 0;
         border-radius: 10%;
@@ -622,7 +627,7 @@
 
     .music-card {
         height: 100%;
-        width: 21%;
+        max-width: 21%;
         flex-grow: 1000;
         display: inline-block;
         margin: 3% 6%;
@@ -701,7 +706,9 @@
         right: 0;
     }
 
-    @media only screen and (max-width: 768px) {
+
+
+    @media only screen and (max-width: 989px) {
 
         /* For mobile phones: */
         [class*="dropdown1"] {
@@ -754,7 +761,6 @@
 
         [class*="fa"] {
             padding: 30px 0px;
-
         }
 
     }
