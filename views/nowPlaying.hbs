@@ -71,6 +71,7 @@
                                     <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
                                     <input type="text" name="songName" value="{{this.name}}" hidden>
                                     <input type="text" name="albumName" value="{{this.artist}}" hidden>
+                                    <input type="text" name="duration" value="{{this.duration}}" hidden>
                                 </div>
                             </div>
                             {{/if}}
@@ -87,6 +88,7 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="totalDurationListened" value="{{this.durationListened}}">
     {{> player}}
     <script>
         console.log('function called');
@@ -113,6 +115,15 @@
                     }
                 }
             }
+        }
+
+        window.onload = () => {
+            const totalDurationListened = parseInt(document.getElementById('totalDurationListened').value);
+            console.log(totalDurationListened);
+            if (totalDurationListened > 600) {
+                alert("You have been listening for 10 minutes. Consider taking a break for your digital wellbeing");
+            }
+
         }
     </script>
 </body>

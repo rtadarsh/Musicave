@@ -4,6 +4,7 @@ const axios = require('axios');
 const hbs = require('hbs');
 const SpotifyWebApi = require('spotify-web-api-node');
 const randomWords = require('random-words');
+const storage = require('node-sessionstorage')
 
 
 hbs.registerHelper('each_upto', function (ary, max, options) {
@@ -82,6 +83,14 @@ router.get('/random', (req, res) => {
 })
 
 router.post('/play', async (req, res) => {
+    if (storage.getItem('time') == undefined) {
+        storage.setItem('time', parseInt(req.body.duration));
+    } else {
+        const val = parseInt(storage.getItem('time'));
+        storage.setItem('time', parseInt(val) + parseInt(req.body.duration));
+    }
+    const durationListened = parseInt(storage.getItem('time'));
+
     const searchQuery = `${req.body.songName} ${req.body.albumName}`;
     let recommendedTrackNames = [];
     let recommendedTracks = [];
@@ -122,14 +131,17 @@ router.post('/play', async (req, res) => {
                 recommendedTracks.push(data.data.results[0]);
             })
     }
-    console.log(display);
     res.render('nowPlaying', {
         songUrl: req.body.songUrl,
         recommendedTracks: recommendedTracks,
-        display: display
+        display: display,
+        durationListened: durationListened
     })
     recommendedTrackNames = [];
     recommendedTracks = [];
+    if (durationListened > 600) {
+        storage.setItem('time', 0);
+    }
 });
 
 router.get('/albumtrack/:alid', function (req, res) {
