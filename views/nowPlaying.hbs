@@ -10,10 +10,6 @@
     <script src="https://kit.fontawesome.com/e35a902f27.js" crossorigin="anonymous"></script>
     <title>MyTunes Search-Tracks</title>
     {{> style}}
-
-
-
-
 </head>
 
 <body>
@@ -54,7 +50,7 @@
                         </center>
 
                         {{#if display}}
-                        {{#each recommendedTrack}}
+                        {{#each recommendedTracks}}
                         {{!-- why is action here --}}
                         <form action="/play" method="POST">
                             {{#if true}}

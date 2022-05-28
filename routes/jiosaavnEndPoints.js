@@ -51,46 +51,54 @@ router.get('/', function (req, res) {
 });
 
 router.post('/play', async (req, res) => {
-    const recommendedTrackNames = [];
-    const recommendedTracks = [];
-    await spotifyApi.searchTracks(`${req.body.songName} ${req.body.albumName}`)// give track and artist name from jiosaavn api
+    const searchQuery = `${req.body.songName} ${req.body.albumName}`;
+    let recommendedTrackNames = [];
+    let recommendedTracks = [];
+    let display = true;
+
+    await spotifyApi.searchTracks(searchQuery)// give track and artist name from jiosaavn api
         .then(async (data) => {
-            // console.log("searching")
-            const songId = data.body.tracks.items[0].id;// get the song id and feed it to recomm system
-            await spotifyApi.getRecommendations({
-                seed_tracks: [songId]
-            }).then(data => {
-                // console.log("recomm");
-                const tracks = data.body.tracks;
-                for (let i = 0; i < Math.min(tracks.length, 5); i++) {
-                    // console.log(tracks[i].name);
-                    recommendedTrackNames.push(tracks[i].name)
-                }
-                // recommendedTrackNames.forEach(name => console.log(name))
-            }, (err) => console.log(err))
+            try {
+                const fetchedSong = data.body.tracks.items[0];
+                const songId = fetchedSong.id;// get the song id and feed it to recomm system
+                const artistId = fetchedSong.artists[0].id;
+
+                await spotifyApi.getRecommendations({
+                    seed_tracks: songId,
+                    seed_artists: artistId
+                }).then(data => {
+                    const tracks = data.body.tracks.sort((a, b) => {
+                        return a.popularity - b.popularity;
+                    });
+                    for (let i = 0; i < Math.min(tracks.length, 5); i++) {
+                        recommendedTrackNames.push(tracks[i].name)
+                    }
+                }, (err) => {
+                    display = false;
+                    console.log(err);
+                })
+            } catch (err) {
+                display = false;
+                console.log(err);
+            }
+        }, err => {
+            display = false;
+            console.log(err);
         });
-    // console.log(recommendedTrackNames.length);
     for (let i = 0; i < recommendedTrackNames.length; i++) {
         await axios.get(`https://saavn.me/search/songs?query=${recommendedTrackNames[i]}&page=1&limit=1`)
             .then(data => {
-                console.log("pushing");
                 recommendedTracks.push(data.data.results[0]);
             })
     }
-    // recommendedTrackNames.forEach((trackName) => {
-    //     console.log("fetching");
-    //     axios.get(`https://saavn.me/search/songs?query=${trackName}&page=1&limit=1`)
-    //         .then(async data => {
-    //             console.log("pushing")
-    //             recommendedTracks.push(data.data.results[0]);
-    //         }, err => console.log(err));
-    // });
-    console.log("random");
+    console.log(display);
     res.render('nowPlaying', {
         songUrl: req.body.songUrl,
-        recommendedTracks: recommendedTracks
+        recommendedTracks: recommendedTracks,
+        display: display
     })
-    console.log("playing")
+    recommendedTrackNames = [];
+    recommendedTracks = [];
 });
 
 router.get('/albumtrack/:alid', function (req, res) {
