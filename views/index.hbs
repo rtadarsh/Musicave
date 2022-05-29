@@ -83,7 +83,7 @@
                 <div>
                     <h1
                         style="font-size:xx-large; text-align: center; margin:20px 20px 0; font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
-                        Trending Songs</h1>
+                        Trending Songs <span style="font-size: large;">(Previews)</span></h1>
                 </div>
                 <div>
                     {{!-- Show trending songs : atmost six --}}
@@ -116,7 +116,7 @@
                                             height="30%" hspace="10" loop scrolldelay=50>
                                             <h5 class="album-name pt-4 pb-2" style="width: 40%;" id="songNameOne"
                                                 value="{{this.title}}">
-                                                {{this.title}}</h5>
+                                                {{this.title}} ({{this.more_info.album}})</h5>
                                         </marquee>
                                     </a>
                                 </center>
