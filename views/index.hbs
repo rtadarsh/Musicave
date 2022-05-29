@@ -4,7 +4,6 @@
 <head>
     <title>Musicave</title>
 
-    <!--<link rel="preconnect" href="https://fonts.gstatic.com">-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,31 +17,31 @@
 <body>
     <div id="wrapper">
         {{> header}}
+
+        {{!-- Left : Sidebar --}}
         <div class="split left">
             <div class="nav">
                 <nav class="sidebar" style="margin-top: 60%;">
-                    <!-- Avatar image in top left corner -->
 
+                    {{!-- Home --}}
                     <a href="/" title="Home">
                         <i class="fa fa-home"></i>
-                        {{!-- <p>HOME</p> --}}
                     </a>
+
+                    {{!-- Trending --}}
                     <a href="/trending" title="Trending">
                         <i class="fa-solid fa-arrow-trend-up"></i>
-
-                        {{!-- <i class="fa fa-play-circle-o"></i> --}}
-                        {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/random" title="Play Random Song">
+                    {{!-- Recommend Random Songs --}}
+                    <a href="/random" title="Shuffle">
                         <i class="fa-solid fa-shuffle"></i>
-                        {{!-- <p>Add Playlist</p> --}}
                     </a>
-
                 </nav>
             </div>
         </div>
 
+        {{!-- Right : Results --}}
         <div class="split right">
             <div class="contain" style="display: flex; flex-direction:column;">
                 <div>
@@ -51,8 +50,10 @@
                         Trending Albums</h1>
                 </div>
                 <div>
+                    {{!-- Show Trending Albums : Atmost six --}}
                     {{#each trendingAlbums}}
                     <div class="music-card newreimg">
+                        {{!-- Open tracks available in the album --}}
                         <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
                             class="links" style="color: black;">
                             <center>
@@ -85,10 +86,11 @@
                         Trending Songs</h1>
                 </div>
                 <div>
+                    {{!-- Show trending songs : atmost six --}}
                     {{#each trendingSongs}}
                     <div class="music-card newreimg">
+                        {{!-- Play the current track --}}
                         <form action="/play" method="post" id="trendingSongsForm">
-                            {{!-- <button type="submit" class="play-button"></button> --}}
                             <input type="text" name="songUrl" value="{{this.more_info.vlink}}" hidden>
                             <input type="text" name="songName" value="{{this.title}}" hidden>
                             <input type="text" name="albumName" value="{{this.more_info.album}}" hidden>

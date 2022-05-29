@@ -20,30 +20,32 @@
 <body>
     <div id="wrapper">
         {{> header}}
-        <!-- Icon Bar (Sidebar - hidden on small screens) -->
+
+        {{!-- Left : Sidebar --}}
         <div class="split left">
             <div class="nav">
                 <nav class="sidebar" style="margin-top: 60%;">
-                    <!-- Avatar image in top left corner -->
 
+                    {{!-- Home --}}
                     <a href="/" title="Home">
                         <i class="fa fa-home"></i>
-                        {{!-- <p>HOME</p> --}}
-                    </a>
-                    <a href="/trending" title="Trending">
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/random" title="Play Random Song">
+                    {{!-- Trending --}}
+                    <a href="/trending" title="Trending">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </a>
+
+                    {{!-- Recommend random songs --}}
+                    <a href="/random" title="Shuffle">
                         <i class="fa-solid fa-shuffle"></i>
-                        {{!-- <p>Add Playlist</p> --}}
                     </a>
 
                 </nav>
             </div>
         </div>
-        <!-- from here all new released album displpay-->
+
+        {{!-- Right : Results --}}
         <div class="split right">
             <div class="contain">
                 <div class="track" style="top:75%;">
@@ -55,6 +57,9 @@
                         </center>
 
                         {{#if display}}
+
+                        {{!-- If the track is played from randomly suggested tracks, then playing a track will not
+                        recommend more tracks --}}
                         {{#if randomPlayer}}
                         {{#each ar}}
                         <form action="/stracks" method="POST">
@@ -70,6 +75,8 @@
                                     </h5>
                                 </div>
                                 <div class="float-child float-child-3">
+
+                                    {{!-- Clicking the button just Plays the song --}}
                                     <button type="submit" class="play-button"
                                         onclick="return setPlayer('{{this.downloadUrl.2.link}}');"></button>
                                     <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
@@ -79,9 +86,11 @@
                         </form>
                         {{/each}}
                         {{else}}
+
+                        {{!-- If the track is played from a by searching for it, then playing the track will recommend
+                        more tracks --}}
                         {{#each ar}}
                         <form action="/play" method="POST">
-                            {{#if true}}
                             <div class="trackrow">
                                 <div class="float-child float-child-1">
                                     <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
@@ -93,6 +102,8 @@
                                             {{this.album.name}})</span>
                                     </h5>
                                 </div>
+
+                                {{!-- This plays the current track and recommends more tracks --}}
                                 <div class="float-child float-child-3">
                                     <button type="submit" class="play-button"></button>
                                     <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
@@ -102,7 +113,6 @@
                                     <input type="text" name="randomPlayer" value="{{../randomPlayer}}" hidden>
                                 </div>
                             </div>
-                            {{/if}}
                         </form>
                         {{/each}}
                         {{/if}}
@@ -119,8 +129,6 @@
     {{> player}}
     <script>
         function setPlayer(media_src) {
-            console.log('function called');
-            console.log('media src: ' + media_src);
             var player = document.getElementById('player');
             player.src = media_src;
             player.load();
