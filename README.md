@@ -2,12 +2,12 @@
 
 Musicave is a music-streaming service built upon JioSaavn and Spotify API. It can stream various songs and gives you option to download the songs. It has various features such as :
 
+- Stream songs
+- Download songs
 - Get trending songs
 - Get trending albums
-- Search by song name
-- Search by album name
-- Play song
-- Download songs
+- Search songs by name
+- Search songs by albums
 - Get recommendations based on current playing song
 
 #### Special Features
