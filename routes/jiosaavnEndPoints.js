@@ -83,6 +83,7 @@ router.get('/random', (req, res) => {
 })
 
 router.post('/play', async (req, res) => {
+
     if (storage.getItem('time') == undefined) {
         storage.setItem('time', parseInt(req.body.duration));
     } else {
@@ -91,7 +92,8 @@ router.post('/play', async (req, res) => {
     }
     const durationListened = parseInt(storage.getItem('time'));
 
-    const searchQuery = `${req.body.songName} ${req.body.albumName}`;
+    const searchQuery = `${req.body.songName} ${req.body.albumName}`.substring(0, 20);
+    console.log(searchQuery);
     let recommendedTrackNames = [];
     let recommendedTracks = [];
     let display = true;
@@ -181,6 +183,10 @@ router.get('/search', (req, res) => {
         axios.get(`https://saavn.me/search/songs?query=${req.query.artist}&page=1&limit=10`)
             .then((data) => {
                 var ar = data.data.results;
+                ar.forEach(song => {
+                    song.name = song.name.replaceAll('&quot;', '');
+                    song.album.name = song.album.name.replaceAll('&quot;', '');
+                })
                 let display = true;
                 res.render('stracks', {
                     ar: ar,

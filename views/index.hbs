@@ -87,29 +87,39 @@
                 <div>
                     {{#each trendingSongs}}
                     <div class="music-card newreimg">
-                        <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
-                            class="links" style="color: black;">
-                            <center>
-                                <div class="">
-                                    <img class="rimage" id="songImageOne" src="{{this.image}}" alt="Card image cap">
-                                </div>
-                            </center>
-                        </a>
+                        <form action="/play" method="post" id="trendingSongsForm">
+                            {{!-- <button type="submit" class="play-button"></button> --}}
+                            <input type="text" name="songUrl" value="{{this.more_info.vlink}}" hidden>
+                            <input type="text" name="songName" value="{{this.title}}" hidden>
+                            <input type="text" name="albumName" value="{{this.more_info.album}}" hidden>
+                            <input type="text" name="duration" value="15" hidden>
+                            <input type="text" name="randomPlayer" value="false" hidden>
 
-                        <div>
-                            <center style="margin-bottom: 5px;">
-                                <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy;" class="links"
-                                    style="color: black;">
-                                    <marquee width=80% onMouseOver="javascript:stop()" onMouseOut="javascript:start()"
-                                        direction="left" behavior="scroll" dir="ltr" height="30%" hspace="10" loop
-                                        scrolldelay=50>
-                                        <h5 class="album-name pt-4 pb-2" style="width: 40%;" id="songNameOne"
-                                            value="{{this.title}}">
-                                            {{this.title}}</h5>
-                                    </marquee>
-                                </a>
-                            </center>
-                        </div>
+                            <a href="javascript:{}" style="text-decoration: wavy; cursor-pointer:pointer" class="links"
+                                style="color: black;" onclick="document.getElementById('trendingSongsForm').submit();">
+                                <center>
+                                    <div class="">
+                                        <img class="rimage" id="songImageOne" src="{{this.image}}" alt="Card image cap">
+                                    </div>
+                                </center>
+                            </a>
+
+                            <div>
+                                <center style="margin-bottom: 5px;">
+                                    <a href="javascript:{}" style="text-decoration: wavy;" class="links"
+                                        style="color: black;"
+                                        onclick="document.getElementById('trendingSongsForm').submit();">
+                                        <marquee width=80% onMouseOver="javascript:stop()"
+                                            onMouseOut="javascript:start()" direction="left" behavior="scroll" dir="ltr"
+                                            height="30%" hspace="10" loop scrolldelay=50>
+                                            <h5 class="album-name pt-4 pb-2" style="width: 40%;" id="songNameOne"
+                                                value="{{this.title}}">
+                                                {{this.title}}</h5>
+                                        </marquee>
+                                    </a>
+                                </center>
+                            </div>
+                        </form>
                     </div>
                     {{/each}}
                 </div>
