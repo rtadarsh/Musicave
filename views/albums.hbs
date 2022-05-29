@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Musicave Albums</title>
+    <title>Musicave - Albums</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,35 +15,33 @@
 <body>
     <div id="wrapper">
         {{> header}}
-        <!-- Icon Bar (Sidebar - hidden on small screens) -->
+        {{!-- Left : Sidebar --}}
         <div class="split left">
             <div class="nav">
                 <nav class="sidebar" style="margin-top: 60%;">
-                    <!-- Avatar image in top left corner -->
 
+                    {{!-- HOME --}}
                     <a href="/" title="Home">
                         <i class="fa fa-home"></i>
-                        {{!-- <p>HOME</p> --}}
                     </a>
+
+                    {{!-- Trending --}}
                     <a href="/trending" title="Trending">
                         <i class="fa-solid fa-arrow-trend-up"></i>
-                        {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/random" title="Play Random Song">
+                    {{!-- Recommend Random Songs --}}
+                    <a href="/random" title="Shuffle">
                         <i class="fa-solid fa-shuffle"></i>
-                        {{!-- <p>Add Playlist</p> --}}
                     </a>
-
                 </nav>
             </div>
         </div>
 
-
+        {{!-- Right : Results --}}
         <div class="split right">
             <div class="contain" style="display: flex; flex-direction:column;">
-                <!--artist search-->
-
+                {{!-- Album Search Results --}}
                 <div>
                     <h1
                         style="font-size:xx-large; text-align: center; margin:20px 20px 0;font-weight:700;font-family:'Sen', sans-serif; color:aliceblue">
@@ -52,16 +50,14 @@
                 <div>
                     {{#each ar}}
                     <div class="music-card newreimg">
-                        {{!-- modify the playlist track link --}}
+                        {{!-- Open tracks of the selected album --}}
                         <a href="/albumtrack/{{this.id}}" style="text-decoration: wavy; cursor-pointer:pointer"
                             class="links" style="color: black;">
-                            {{!-- {{#each_upto this.images 1}} --}}
                             <center>
                                 <div class="">
                                     <img class="rimage" id="songImageOne" src="{{this.image}}" alt="Card image cap">
                                 </div>
                             </center>
-                            {{!-- {{/each_upto}} --}}
                         </a>
                         <div>
                             <center style="margin-bottom: 5px;">
@@ -80,7 +76,6 @@
                     </div>
                     {{/each}}
                 </div>
-
             </div>
         </div>
     </div>

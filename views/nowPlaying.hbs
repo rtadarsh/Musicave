@@ -16,30 +16,32 @@
 <body>
     <div id="wrapper">
         {{> header}}
-        <!-- Icon Bar (Sidebar - hidden on small screens) -->
+
+        {{!-- Left : Sidebar --}}
         <div class="split left">
             <div class="nav">
                 <nav class="sidebar" style="margin-top: 60%;">
-                    <!-- Avatar image in top left corner -->
 
+                    {{!-- Home --}}
                     <a href="/" title="Home">
                         <i class="fa fa-home"></i>
-                        {{!-- <p>HOME</p> --}}
-                    </a>
-                    <a href="/trending" title="Trending">
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        {{!-- <p>Playlist</p> --}}
                     </a>
 
-                    <a href="/random" title="Play Random Song">
+                    {{!-- Trending --}}
+                    <a href="/trending" title="Trending">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </a>
+
+                    {{!-- Recommend random songs --}}
+                    <a href="/random" title="Shuffle">
                         <i class="fa-solid fa-shuffle"></i>
-                        {{!-- <p>Add Playlist</p> --}}
                     </a>
 
                 </nav>
             </div>
         </div>
-        <!-- from here all new released album displpay-->
+
+        {{!-- Right : Results --}}
         <div class="split right">
             <div class="contain">
                 <div class="track" style="top:75%;">
@@ -51,10 +53,9 @@
                         </center>
 
                         {{#if display}}
+                        {{!-- The song has started Playing and some more tracks are recommended here --}}
                         {{#each recommendedTracks}}
-                        {{!-- why is action here --}}
                         <form action="/play" method="POST">
-                            {{#if true}}
                             <div class="trackrow">
                                 <div class="float-child float-child-1">
                                     <img src="{{this.image.0.link}}" alt="trackimg" class="trackimg">
@@ -66,6 +67,8 @@
                                             {{this.album.name}})</span>
                                     </h5>
                                 </div>
+
+                                {{!-- Play the recommended track --}}
                                 <div class="float-child float-child-3">
                                     <button type="submit" class="play-button"></button>
                                     <input type="text" name="songUrl" value="{{this.downloadUrl.2.link}}" hidden>
@@ -74,7 +77,6 @@
                                     <input type="text" name="duration" value="{{this.duration}}" hidden>
                                 </div>
                             </div>
-                            {{/if}}
                         </form>
                         {{/each}}
                         {{else}}
@@ -82,17 +84,17 @@
                             <h2>No Preview available for the tracks</h2>
                         </div>
                         {{/if}}
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{!-- The value of this input is used for calculating total duration listened --}}
     <input type="hidden" id="totalDurationListened" value="{{this.durationListened}}">
+
     {{> player}}
     <script>
-        console.log('function called');
-        console.log('media src: ' + "{{ songUrl }}");
         var player = document.getElementById('player');
         player.src = "{{ songUrl }}";
         player.load();
@@ -117,13 +119,12 @@
             }
         }
 
+        // If the user is listening songs for more than 10 minutes, then alert the user for his/her digital wellbeing
         window.onload = () => {
             const totalDurationListened = parseInt(document.getElementById('totalDurationListened').value);
-            console.log(totalDurationListened);
             if (totalDurationListened > 600) {
                 alert("You have been listening for 10 minutes. Consider taking a break for your digital wellbeing");
             }
-
         }
     </script>
 </body>
